@@ -20,15 +20,11 @@ namespace SoccerStats
 			//var fileName = Path.Combine(directory.FullName, "SoccerGameResults.csv");
 			//var fileContents = ReadSoccerResults(fileName);
 
-
 			//fileName = Path.Combine(directory.FullName, "players.json");
 			//var players = DeserializePlayers(fileName);
 
 			var fileName = Path.Combine(directory.FullName, "dawson89.json");
 			var badges = DeserializeBadges(fileName);
-
-
-
 
 			//var topTenPlayers = GetTopTenPlayers(players);
 			//foreach (var player in topTenPlayers)
@@ -38,9 +34,6 @@ namespace SoccerStats
 			//fileName = Path.Combine(directory.FullName, "bottomten.json");
 			//SerializeBadgeToFile(bottomTenBadges, fileName);
 
-
-
-			// Custom json export start
 			// var bottomTenPlayers = GetBottomTenPlayers(players);
 			// foreach (var player in bottomTenPlayers)
 			//{
@@ -48,17 +41,26 @@ namespace SoccerStats
 			//}
 			// fileName = Path.Combine(directory.FullName, "bottomten.json");
 			// SerializePlayerToFile(bottomTenPlayers, fileName);
-			// Custom json export end
 
 			var bottomTenBadges = GetBottomTenBadges(badges);
 			foreach (var badge in bottomTenBadges)
 			{
-				Console.WriteLine("Badge Name: " + badge.Name + " ID Number: " + badge.Id);
+				Console.WriteLine("Badge Name: " + badge.Name + " ID Number: " + badge.Id + " " + badge.EarnedDate.ToShortDateString());
 			}
-			fileName = Path.Combine(directory.FullName, "bottomtenbadges.json");
+			fileName = Path.Combine(directory.FullName, "recentbadges.json");
 			SerializeBadgeToFile(bottomTenBadges, fileName);
 
+			var bottomTwentyBadges = GetBottomTwentyBadges(badges);
+			foreach (var badge in bottomTwentyBadges)
+			{
+				Console.WriteLine("Badge Name: " + badge.Name + " ID Number: " + badge.Id + " " + badge.EarnedDate.ToShortDateString());
+			}
+			fileName = Path.Combine(directory.FullName, "recenttwentybadges.json");
+			SerializeBadgeToFile(bottomTwentyBadges, fileName);
+
 		}
+
+
 
 		public static List<Badge> DeserializeBadges(string fileName)
 		{
@@ -82,10 +84,11 @@ namespace SoccerStats
 			}
 		}
 
+		// Returns the ten most recent Badges Earned
 		public static List<Badge> GetBottomTenBadges(List<Badge> badges)
 		{
 			var bottomTenBadges = new List<Badge>();
-			badges.Sort(new PlayComp());
+			badges.Sort(new RecentBadge());
 			int counter = 0;
 			foreach (var badge in badges)
 			{
@@ -95,6 +98,22 @@ namespace SoccerStats
 					break;
 			}
 			return bottomTenBadges;
+		}
+
+		// Returns the twenty most recent Badges Earned
+		public static List<Badge> GetBottomTwentyBadges(List<Badge> badges)
+		{
+			var bottomTwentyBadges = new List<Badge>();
+			badges.Sort(new RecentBadge());
+			int counter = 0;
+			foreach (var badge in badges)
+			{
+				bottomTwentyBadges.Add(badge);
+				counter++;
+				if (counter == 20)
+					break;
+			}
+			return bottomTwentyBadges;
 		}
 
 

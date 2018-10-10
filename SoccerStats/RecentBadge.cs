@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace SoccerStats
 {
-	public class PlayComp : IComparer<Badge>
+	public class RecentBadge : IComparer<Badge>
 	{
 		public int Compare(Badge x, Badge y)
 		{
-			return x.Id.CompareTo(y.Id);
-		}
+			return x.EarnedDate.CompareTo(y.EarnedDate) * -1;
+		} 
 	}
 }

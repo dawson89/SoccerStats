@@ -21,6 +21,8 @@ namespace SoccerStats
 		[JsonProperty(PropertyName = "id")]
 		public int Id { get; set; }
 
+		[JsonProperty(PropertyName = "earned_date")]
+		public DateTime EarnedDate { get; set; }
 	}
 
 }

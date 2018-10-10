@@ -47,7 +47,7 @@
   <ItemGroup>
     <Compile Include="Badge.cs" />
     <Compile Include="GameResult.cs" />
-    <Compile Include="PlayComp.cs" />
+    <Compile Include="RecentBadge.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="PlayerComparer.cs" />
     <Compile Include="Program.cs" />
