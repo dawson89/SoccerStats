@@ -11,7 +11,7 @@ namespace SoccerStats
 	class Program
 	{
 		static void Main(string[] args)
-		
+
 
 		{
 			string currentDirectory = Directory.GetCurrentDirectory();
@@ -20,6 +20,10 @@ namespace SoccerStats
 			var fileContents = ReadSoccerResults(fileName);
 			fileName = Path.Combine(directory.FullName, "players.json");
 			var players = DeserializePlayers(fileName);
+
+			fileName = Path.Combine(directory.FullName, "dawson89.json");
+			var badges = DeserializeBadges(fileName);
+
 			var topTenPlayers = GetTopTenPlayers(players);
 			foreach (var player in topTenPlayers)
 			{
@@ -29,16 +33,30 @@ namespace SoccerStats
 			SerializePlayerToFile(topTenPlayers, fileName);
 
 			// Custom json export start
-				var bottomTenPlayers = GetBottomTenPlayers(players);
-				foreach (var player in bottomTenPlayers)
-				{
-					Console.WriteLine("Name: " + player.FirstName + " PPG: " + player.PointsPerGame);
-				}
-				fileName = Path.Combine(directory.FullName, "bottomten.json");
-				SerializePlayerToFile(bottomTenPlayers, fileName);
+			var bottomTenPlayers = GetBottomTenPlayers(players);
+			foreach (var player in bottomTenPlayers)
+			{
+				Console.WriteLine("Name: " + player.FirstName + " PPG: " + player.PointsPerGame);
+			}
+			fileName = Path.Combine(directory.FullName, "bottomten.json");
+			SerializePlayerToFile(bottomTenPlayers, fileName);
 			// Custom json export end
+	
 		}
 
+		private static object DeserializeBadges(string fileName)
+		{
+			var badges = new List<Badge>();
+			var serializer = new JsonSerializer();
+			using (var reader = new StreamReader(fileName))
+			using (var jsonReader = new JsonTextReader(reader))
+			{
+				badges = serializer.Deserialize<List<Badge>>(jsonReader);
+
+			}
+			return badges;
+		}
+	
 		public static string ReadFile(string fileName)
 		{
 			using (var reader = new StreamReader(fileName))
@@ -126,7 +144,6 @@ namespace SoccerStats
 			}
 			return topTenPlayers;
 		}
-
 		public static List<Player> GetBottomTenPlayers(List<Player> players)
 		{
 			var bottomTenPlayers = new List<Player>();

@@ -4415,31 +4415,4 @@
 				}
 			]
 		}
-	],
-	"points": {
-		"total": 18605,
-		"HTML": 1438,
-		"CSS": 2428,
-		"Design": 137,
-		"JavaScript": 5863,
-		"Ruby": 0,
-		"PHP": 167,
-		"WordPress": 349,
-		"iOS": 7,
-		"Android": 0,
-		"Development Tools": 1682,
-		"Business": 525,
-		"Python": 1,
-		"Java": 1,
-		"Digital Literacy": 0,
-		"C#": 4127,
-		"Databases": 909,
-		"Data Analysis": 0,
-		"APIs": 0,
-		"Security": 0,
-		"Go": 0,
-		"Quality Assurance": 1,
-		"Machine Learning": 0,
-		"Computer Science": 0
-	}
-}
+	]

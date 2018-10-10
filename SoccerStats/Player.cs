@@ -8,7 +8,7 @@ using Newtonsoft.Json;
 namespace SoccerStats
 {
 
-	public class RootObject
+	public class No
 	{
 		public Player[] Player { get; set; }
 	}
