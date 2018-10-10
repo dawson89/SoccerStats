@@ -35,8 +35,8 @@ namespace SoccerStats
 			//{
 			//	Console.WriteLine("Name: " + player.FirstName + " PPG: " + player.PointsPerGame);
 			//}
-			//fileName = Path.Combine(directory.FullName, "topten.json");
-			//SerializePlayerToFile(topTenPlayers, fileName);
+			//fileName = Path.Combine(directory.FullName, "bottomten.json");
+			//SerializeBadgeToFile(bottomTenBadges, fileName);
 
 
 
@@ -53,8 +53,10 @@ namespace SoccerStats
 			var bottomTenBadges = GetBottomTenBadges(badges);
 			foreach (var badge in bottomTenBadges)
 			{
-				Console.WriteLine("Name: " + badge.Name + " ID Number: " + badge.Id);
+				Console.WriteLine("Badge Name: " + badge.Name + " ID Number: " + badge.Id);
 			}
+			fileName = Path.Combine(directory.FullName, "bottomtenbadges.json");
+			SerializeBadgeToFile(bottomTenBadges, fileName);
 
 		}
 
@@ -107,7 +109,7 @@ namespace SoccerStats
 		//		{
 		//			var gameResult = new GameResult();
 		//			string[] values = line.Split(',');
-	
+
 		//			DateTime gameDate;
 		//			if (DateTime.TryParse(values[0], out gameDate))
 		//			{
@@ -156,7 +158,7 @@ namespace SoccerStats
 		//	{
 		//		players = serializer.Deserialize<List<Player>>(jsonReader);
 		//	}
-				
+
 
 		//		return players;
 		//}
@@ -174,29 +176,29 @@ namespace SoccerStats
 		//	}
 		//	return topTenPlayers;
 		//}
-		//public static List<Player> GetBottomTenPlayers(List<Player> players)
+		//public static List<Badge> GetBottomTenBadges(List<Badge> badges)
 		//{
-		//	var bottomTenPlayers = new List<Player>();
-		//	players.Sort(new PlayComp());
+		//	var bottomTenBadgess = new List<Badge>();
+		//	badges.Sort(new PlayComp());
 		//	int counter = 0;
-		//	foreach (var player in players)
+		//	foreach (var badge in badges)
 		//	{
-		//		bottomTenPlayers.Add(player);
+		//		bottomTenBadges.Add(badge);
 		//		counter++;
 		//		if (counter == 10)
 		//			break;
 		//	}
-		//	return bottomTenPlayers;
+		//	return bottomTenBadges;
 		//}
 
-		public static void SerializePlayerToFile(List<Player> players, string fileName)
+		public static void SerializeBadgeToFile(List<Badge> badges, string fileName)
 		{
 
 			var serializer = new JsonSerializer();
 			using (var writer = new StreamWriter(fileName))
 			using (var jsonWriter = new JsonTextWriter(writer))
 			{
-				serializer.Serialize(jsonWriter, players);
+				serializer.Serialize(jsonWriter, badges);
 			}
 
 
