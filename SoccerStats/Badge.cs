@@ -15,6 +15,8 @@ namespace SoccerStats
 
 	public class Badge
 	{
+		//internal readonly string counter;
+
 		[JsonProperty(PropertyName = "name")]
 		public string Name { get; set; }
 
@@ -23,6 +25,11 @@ namespace SoccerStats
 
 		[JsonProperty(PropertyName = "earned_date")]
 		public DateTime EarnedDate { get; set; }
+
+		//[JsonProperty(PropertyName = "name")]
+		public int NumberSelector { get; set; }
+
+		public string FavoriteClass { get; set; }
 	}
 
 }

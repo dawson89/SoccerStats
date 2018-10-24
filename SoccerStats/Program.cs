@@ -19,7 +19,6 @@ namespace SoccerStats
 
 			//var fileName = Path.Combine(directory.FullName, "SoccerGameResults.csv");
 			//var fileContents = ReadSoccerResults(fileName);
-
 			//fileName = Path.Combine(directory.FullName, "players.json");
 			//var players = DeserializePlayers(fileName);
 
@@ -43,24 +42,94 @@ namespace SoccerStats
 			// SerializePlayerToFile(bottomTenPlayers, fileName);
 
 			var bottomTenBadges = GetBottomTenBadges(badges);
-			foreach (var badge in bottomTenBadges)
-			{
-				Console.WriteLine("Badge Name: " + badge.Name + " ID Number: " + badge.Id + " " + badge.EarnedDate.ToShortDateString());
-			}
+			//foreach (var badge in bottomTenBadges)
+			//{
+			//	Console.WriteLine("Badge Name: " + badge.Name + " ID Number: " + badge.Id + " " + badge.EarnedDate.ToShortDateString());
+			//}
 			fileName = Path.Combine(directory.FullName, "recentbadges.json");
 			SerializeBadgeToFile(bottomTenBadges, fileName);
 
 			var bottomTwentyBadges = GetBottomTwentyBadges(badges);
-			foreach (var badge in bottomTwentyBadges)
-			{
-				Console.WriteLine("Badge Name: " + badge.Name + " ID Number: " + badge.Id + " " + badge.EarnedDate.ToShortDateString());
-			}
+			//foreach (var badge in bottomTwentyBadges)
+			//{
+			//	Console.WriteLine("Badge Name: " + badge.Name + " ID Number: " + badge.Id + " " + badge.EarnedDate.ToShortDateString());
+			//}
 			fileName = Path.Combine(directory.FullName, "recenttwentybadges.json");
 			SerializeBadgeToFile(bottomTwentyBadges, fileName);
 
+			string yes = "Y";
+			string no = "N";
+			Console.WriteLine("Would you like to view the ten most recent badges earned? (Hint: Enter Y yes or N no)");
+			var Answer = Console.ReadLine();
+			while (Answer == yes)
+			{
+				//Console.WriteLine("Options");
+
+				//forin (var badge in bottomTenBadges)
+				for (int i = 0; i < bottomTenBadges.Count; i++)
+
+				{
+					var displayNumber = i + 1;
+					var badge = bottomTenBadges[i];
+					Console.WriteLine(displayNumber.ToString() + " Badge ID Number: " + badge.Id + " Badge Name: " + badge.Name + " Date Earned: " + badge.EarnedDate.ToShortDateString() + " Favorite Class: " + badge.FavoriteClass);
+
+
+				}
+
+				Console.WriteLine("Which badge would you like to edit/update/delete? Please enter a number 1-10");
+		
+				var answerNo = Console.ReadLine();
+				var indexAnswer = int.Parse(answerNo);
+				var goFind = indexAnswer - 1;
+
+
+				Console.WriteLine("Badge ID Number: " + bottomTenBadges[goFind].Id + " Favorite Badge: " + bottomTenBadges[goFind].FavoriteClass);
+				Console.ReadLine();
+
+				//foreach (var badge in bottomTenBadges)
+				//{
+
+				//	Console.WriteLine(" Badge ID Number: " + badge.Id + " Badge Name: " + badge.Name + " Date Earned: " + badge.EarnedDate.ToShortDateString() + " Favorite Class: " + badge.FavoriteClass);
+				//}
+				//break;
+			}
+			//	Console.WriteLine("Would you like to edit an entry?");
+			//	Answer = Console.ReadLine();
+			//	if (Answer == yes)
+			//	{
+			//		Console.WriteLine("which entry would you like to edit? Hint: 1-10");
+			//		var thisIsHard = Console.ReadLine();
+			//		Console.WriteLine("You selected " + thisIsHard);
+			//		Console.WriteLine("Did you like this class? Hint: 1 = yes and 2 = no");
+			//		var thisIsHardAnswer = Console.ReadLine();
+
+			//	}
+			//	else
+			//	{
+			//		break;
+			//	}
+			//};
+
+			//Console.WriteLine("Select which entry you would like to edit? Hint: 1-10");
+			//Console.ReadLine();
+
+			//while (Answer == no)
+			//{
+			//	Console.WriteLine("Then piss off");
+			//	break;
+
+			//}
+
+
+
+			//while (Answer != no & Answer != yes)
+			//{
+			//	Console.WriteLine("Then piss off");
+			//	break;
+			//}
+
+
 		}
-
-
 
 		public static List<Badge> DeserializeBadges(string fileName)
 		{
@@ -75,7 +144,7 @@ namespace SoccerStats
 			}
 			return badges;
 		}
-	
+
 		public static string ReadFile(string fileName)
 		{
 			using (var reader = new StreamReader(fileName))
@@ -115,7 +184,6 @@ namespace SoccerStats
 			}
 			return bottomTwentyBadges;
 		}
-
 
 		//public static List<GameResult> ReadSoccerResults(string fileName)
 		//{
