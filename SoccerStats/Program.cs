@@ -71,27 +71,37 @@ namespace SoccerStats
 				{
 					var displayNumber = i + 1;
 					var badge = bottomTenBadges[i];
-					Console.WriteLine(displayNumber.ToString() + " Badge ID Number: " + badge.Id + " Badge Name: " + badge.Name + " Date Earned: " + badge.EarnedDate.ToShortDateString() + " Favorite Class: " + badge.FavoriteClass);
+					Console.WriteLine(displayNumber.ToString() + " Badge ID Number: " + badge.Id + " Badge Name: " + badge.Name + " Date Earned: " + badge.EarnedDate.ToShortDateString() + " Favorite: " + badge.FavoriteClass);
 
 
 				}
 
-				Console.WriteLine("Which badge would you like to edit/update/delete? Please enter a number 1-10");
-		
+				Console.WriteLine("Enter the number of the badge that you would like to edit/update/delete your favorite status? (Hint: Enter E to exit)");
+
 				var answerNo = Console.ReadLine();
 				var indexAnswer = int.Parse(answerNo);
 				var goFind = indexAnswer - 1;
 
 
-				Console.WriteLine("Badge ID Number: " + bottomTenBadges[goFind].Id + " Favorite Badge: " + bottomTenBadges[goFind].FavoriteClass);
-				Console.ReadLine();
+				Console.Write("Badge ID Number: " + bottomTenBadges[goFind].Id + " Badge Name: " + bottomTenBadges[goFind].Name + " Favorite: " + bottomTenBadges[goFind].FavoriteClass);
+				var wantsToQuit = "E";
+				var wantsToDo = Console.ReadLine();
+				if (wantsToDo == wantsToQuit)
+				{
+					break;
+				}
+				else
+				{
+					bottomTenBadges[goFind].FavoriteClass = wantsToDo;
+				}
 
+	
 				//foreach (var badge in bottomTenBadges)
 				//{
 
 				//	Console.WriteLine(" Badge ID Number: " + badge.Id + " Badge Name: " + badge.Name + " Date Earned: " + badge.EarnedDate.ToShortDateString() + " Favorite Class: " + badge.FavoriteClass);
 				//}
-				//break;
+
 			}
 			//	Console.WriteLine("Would you like to edit an entry?");
 			//	Answer = Console.ReadLine();
@@ -112,6 +122,7 @@ namespace SoccerStats
 
 			//Console.WriteLine("Select which entry you would like to edit? Hint: 1-10");
 			//Console.ReadLine();
+
 
 			//while (Answer == no)
 			//{
