@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SoccerStats
+namespace RecentBadges
 {
 	public class RecentBadge : IComparer<Badge>
 	{
