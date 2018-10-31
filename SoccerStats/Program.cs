@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Newtonsoft.Json;
 
 namespace RecentBadges
@@ -21,57 +18,72 @@ namespace RecentBadges
 			var badges = DeserializeBadges(fileName);
 			var bottomTenBadges = GetBottomTenBadges(badges);
 
-			fileName = Path.Combine(directory.FullName, "recentbadges.json");
-			SerializeBadgeToFile(bottomTenBadges, fileName);
-
-			// Not being used for this project
-			// var bottomTwentyBadges = GetBottomTwentyBadges(badges);
-
-			// fileName = Path.Combine(directory.FullName, "recenttwentybadges.json");
-			// SerializeBadgeToFile(bottomTwentyBadges, fileName);
+			// fileName = Path.Combine(directory.FullName, "recentbadges.json");
+			// SerializeBadgeToFile(bottomTenBadges, fileName);
 
 			string yes = "Y";
 			string no = "N";
-			Console.WriteLine("Would you like to view the ten most recent badges earned? (Enter Y or N )");
-			var Answer = Console.ReadLine();
 
-			while (Answer == yes)
+			Console.Write("Would you like to view Dawson's recently earned badges?  Hint: Y or N ");
+			string Answer = Console.ReadLine();
+			Answer = Answer.ToUpper();
+			if (Answer != yes)
 			{
-				for (int i = 0; i < bottomTenBadges.Count; i++)
+				Console.WriteLine("Whoops something went wrong try typing Y");
+				Answer = Console.ReadLine();
+				Answer = Answer.ToUpper();
+			}
+
+
+				while (Answer == yes)
+				{
+					for (int i = 0; i < bottomTenBadges.Count; i++)
 					{
 						var displayNumber = i + 1;
 						var badge = bottomTenBadges[i];
-						Console.WriteLine(displayNumber.ToString() + " Badge ID Number: " + badge.Id + " Badge Name: " + badge.Name + " Date Earned: " + badge.EarnedDate.ToShortDateString() + " Favorite: " + badge.FavoriteClass);
+						Console.WriteLine(displayNumber.ToString() + " ID: " + badge.Id + " Name: " + badge.Name + " Date Earned: " + badge.EarnedDate.ToShortDateString() + " Favorite: " + badge.FavoriteClass);
 					}
 
-				Console.WriteLine("To add, update, or delete a Badges Favorite information enter number of the line you would like to select? (If your done enter E to exit)");
+					Console.Write("To add/update/delete favorite information enter the number of the line you would like to select? ");
 
-				var answerNo = Console.ReadLine();
-				var indexAnswer = int.Parse(answerNo);
-				var goFind = indexAnswer - 1;
+					var answerNo = Console.ReadLine();
+					var indexAnswer = int.Parse(answerNo);
+					var goFind = indexAnswer - 1;
 
-				Console.Write("Badge ID Number: " + bottomTenBadges[goFind].Id + " Badge Name: " + bottomTenBadges[goFind].Name + " Favorite: " + bottomTenBadges[goFind].FavoriteClass);
-				var wantsToQuit = "E";
-				var wantsToDo = Console.ReadLine();
-
-					if (wantsToDo == wantsToQuit)
+					Console.Write("Badge ID Number: " + bottomTenBadges[goFind].Id + " Badge Name: " + bottomTenBadges[goFind].Name + " Favorite: " + bottomTenBadges[goFind].FavoriteClass);
+					bottomTenBadges[goFind].FavoriteClass = Console.ReadLine();
+					Console.WriteLine("Would like to make another change? ");
+					var AnswerTwo = Console.ReadLine();
+					if (AnswerTwo == "N")
 					{
-						break;
+						Console.Write("How many badges do you want to include in your export? ");
+						var ExportNumber = Console.ReadLine();
+						var ExportAnswer = int.Parse(ExportNumber);
+						Answer = "no";
 					}
 					else
 					{
-						bottomTenBadges[goFind].FavoriteClass = wantsToDo;
+						continue;
 					}
 
-			}
 
+
+
+				
+			}
 			while (Answer == no)
 			{
-				Console.WriteLine("Then piss off");
+				Console.WriteLine("then piss off");
 				break;
 			}
 
+		//	Exports a new json file contain all changes that were made
+			fileName = Path.Combine(directory.FullName, "recenttenbadges.json");
+			SerializeBadgeToFile(bottomTenBadges, fileName);
 		}
+
+
+		
 
 		public static List<Badge> DeserializeBadges(string fileName)
 		{
@@ -98,6 +110,10 @@ namespace RecentBadges
 		// Returns the ten most recent Badges Earned
 		public static List<Badge> GetBottomTenBadges(List<Badge> badges)
 		{
+			Console.Write("How many badges do you want to include in your export? ");
+			var ExportNumber = Console.ReadLine();
+			var ExportAnswer = int.Parse(ExportNumber);
+
 			var bottomTenBadges = new List<Badge>();
 			badges.Sort(new RecentBadge());
 			int counter = 0;
@@ -105,14 +121,12 @@ namespace RecentBadges
 			{
 				bottomTenBadges.Add(badge);
 				counter++;
-				if (counter == 10)
+				if (counter == (ExportAnswer))
 					break;
 			}
 			return bottomTenBadges;
 		}
 
-		// Returns the twenty most recent Badges Earned
-		// Not being used right now
 		//public static List<Badge> GetBottomTwentyBadges(List<Badge> badges)
 		//{
 		//	var bottomTwentyBadges = new List<Badge>();
@@ -128,8 +142,6 @@ namespace RecentBadges
 		//	return bottomTwentyBadges;
 		//}
 
-
-
 		public static void SerializeBadgeToFile(List<Badge> badges, string fileName)
 		{
 
@@ -142,5 +154,7 @@ namespace RecentBadges
 
 
 		}
+
+
 	}
 }
