@@ -1,4 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using Newtonsoft.Json;
 
 namespace RecentBadges
@@ -21,6 +25,9 @@ namespace RecentBadges
 
 		[JsonProperty(PropertyName = "earned_date")]
 		public DateTime EarnedDate { get; set; }
+
+		//[JsonProperty(PropertyName = "name")]
+		public int NumberSelector { get; set; }
 
 		public string FavoriteClass { get; set; }
 	}

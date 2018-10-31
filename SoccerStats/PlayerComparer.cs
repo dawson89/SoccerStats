@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 
 namespace RecentBadges
 {
-	public class RecentBadge : IComparer<Badge>
+	public class PlayerComparer : IComparer<Player>
 	{
-		public int Compare(Badge x, Badge y)
+		public int Compare(Player x, Player y)
 		{
-			return x.EarnedDate.CompareTo(y.EarnedDate) * -1;
-		} 
+			return x.PointsPerGame.CompareTo(y.PointsPerGame) * -1;
+		}
+
 	}
 }
