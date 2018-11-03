@@ -46,28 +46,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Badge.cs" />
-    <Compile Include="GameResult.cs" />
     <Compile Include="RecentBadge.cs" />
-    <Compile Include="Player.cs" />
-    <Compile Include="PlayerComparer.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="dawson89.json" />
     <None Include="packages.config" />
-    <None Include="players.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="SoccerGameResults.csv">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="data.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
