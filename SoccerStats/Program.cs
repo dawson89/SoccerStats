@@ -18,21 +18,27 @@ namespace RecentBadges
 		{
 			if (BadgeClient == null)
 			{
-				BadgeClient = new HttpClient();
-				BadgeClient.BaseAddress = new Uri("https://teamtreehouse.com/");
+				BadgeClient = new HttpClient
+				{
+					BaseAddress = new Uri("https://teamtreehouse.com/")
+				};
 
 			}
 			string currentDirectory = Directory.GetCurrentDirectory();
 			DirectoryInfo directory = new DirectoryInfo(currentDirectory);
 
-				var fileName = Path.Combine(directory.FullName, "dawson89.json");
-				var xfdfdf = BadgeClient.GetStringAsync("dawson89.json");
-				var badges = DeserializeBadges(fileName);
-		
-				var customImportBadges = GetCustomImportBadges(badges);
-			var customExportBadges = GetCustomExportBadges(badges);
+			// var fileName = Path.Combine(directory.FullName, "dawson89.json");
+			// System.Threading.Tasks.Task<string> xfdfdf = BadgeClient.GetStringAsync("dawson89.json");
+			var fileName = Path.Combine(directory.FullName, "allBadges.json");
+			var badges = DeserializeBadges(fileName);
 
-			SerializeBadgeToFile(customImportBadges, Path.Combine(directory.FullName, "recentbadges.json"));
+			var allBadges = GetAllBadges(badges);
+			var customImportBadges = GetCustomImportBadges(badges);
+			var customExportBadges = GetCustomExportBadges(badges);
+			
+
+			SerializeBadgeToFile(allBadges, Path.Combine(directory.FullName, "allbadges.json"));
+		//	SerializeBadgeToFile(customImportBadges, Path.Combine(directory.FullName, "recentbadges.json"));
 		//	SerializeBadgeToFile(customExportBadges, Path.Combine(directory.FullName, "recentbadges.json"));
 
 			string yes = "Y";
@@ -68,17 +74,10 @@ namespace RecentBadges
 					customImportBadges[goFind].FavoriteClass = Console.ReadLine();
 					Console.WriteLine("Would like to make another change? ");
 					var AnswerTwo = Console.ReadLine();
-					if (AnswerTwo == "N")
-					{
-						Console.Write("How many badges do you want to include in your export? ");
-						var ExportNumber = Console.ReadLine();
-						var ExportAnswer = int.Parse(ExportNumber);
-						Answer = "no";
-					}
-					else
-					{
-						continue;
-					}
+				if (AnswerTwo == "N")
+				{
+					break;
+				}
 
 
 
@@ -92,6 +91,9 @@ namespace RecentBadges
 			}
 
 			//Exports a new json file contain all changes that were made
+			fileName = Path.Combine(directory.FullName, "allbadges.json");
+			SerializeBadgeToFile(allBadges, fileName);
+
 			fileName = Path.Combine(directory.FullName, "importbadges.json");
 			SerializeBadgeToFile(customImportBadges, fileName);
 
@@ -122,6 +124,25 @@ namespace RecentBadges
 			{
 				return reader.ReadToEnd();
 			}
+		}
+
+		public static List<Badge> GetAllBadges(List<Badge> badges)
+		{
+		//	Console.Write("How many badges do would you like to work with? ");
+		//	var AllNumber = Console.ReadLine();
+		//	var AllAnswer = int.Parse(AllNumber);
+
+			var allBadges = new List<Badge>();
+			badges.Sort(new RecentBadge());
+			int counter = 0;
+			foreach (var badge in badges)
+			{
+				allBadges.Add(badge);
+				counter++;
+				if (counter == (200))
+					break;
+			}
+			return allBadges;
 		}
 
 		// Returns the ten most recent Badges Earned
@@ -162,6 +183,9 @@ namespace RecentBadges
 			}
 			return customExportBadges;
 		}
+		
+		
+		
 		//public static List<Badge> GetBottomTwentyBadges(List<Badge> badges)
 		//{
 		//	var bottomTwentyBadges = new List<Badge>();
